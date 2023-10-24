@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RentRightApplication<RentRight>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.RentRight.RentRight.RentRightApplication",
+            "projectName": "RentRight",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
