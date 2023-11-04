@@ -16,6 +16,7 @@ import com.RentRight.RentRight.entities.User;
 import com.RentRight.RentRight.services.UserService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("user")
@@ -25,13 +26,13 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<User> post(@RequestBody User user){
+    public ResponseEntity<User> post(@Valid @RequestBody User user){
         User userCriado = service.create(user);
         return ResponseEntity.ok(userCriado);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getRead(@PathVariable Long id){
+    public ResponseEntity<User> getRead(@Valid @PathVariable Long id){
         User user = service.read(id);
         return ResponseEntity.ok(user);
     }
@@ -44,13 +45,13 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<User> put(@RequestBody User user){
+    public ResponseEntity<User> put(@Valid @RequestBody User user){
         User userCriado = service.update(user);
         return ResponseEntity.ok(userCriado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity delete(@Valid @PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

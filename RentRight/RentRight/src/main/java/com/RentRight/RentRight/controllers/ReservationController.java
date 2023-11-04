@@ -16,6 +16,7 @@ import com.RentRight.RentRight.entities.Reservation;
 import com.RentRight.RentRight.services.ReservationService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("reservation")
@@ -25,13 +26,13 @@ public class ReservationController {
     private ReservationService service;
 
     @PostMapping
-    public ResponseEntity<Reservation> post(@RequestBody Reservation reservation){
+    public ResponseEntity<Reservation> post(@Valid @RequestBody Reservation reservation){
         Reservation reservationCriado = service.create(reservation);
         return ResponseEntity.ok(reservationCriado);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservation> getRead(@PathVariable Long id){
+    public ResponseEntity<Reservation> getRead(@Valid @PathVariable Long id){
         Reservation reservation = service.read(id);
         return ResponseEntity.ok(reservation);
     }
@@ -44,13 +45,13 @@ public class ReservationController {
     }
 
     @PutMapping
-    public ResponseEntity<Reservation> put(@RequestBody Reservation reservation){
+    public ResponseEntity<Reservation> put(@Valid @RequestBody Reservation reservation){
         Reservation reservationCriado = service.update(reservation);
         return ResponseEntity.ok(reservationCriado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity delete(@Valid @PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
