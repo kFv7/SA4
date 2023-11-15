@@ -2,7 +2,9 @@ package com.RentRight.RentRight.controllers;
 
 import java.util.List;
 
+import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RentRight.RentRight.entities.Contract;
+import com.RentRight.RentRight.dto.ContractInputDTO;
+import com.RentRight.RentRight.dto.ContractOutputDTO;
 import com.RentRight.RentRight.services.ContractService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,28 +29,28 @@ public class ContractController {
     private ContractService service;
 
     @PostMapping
-    public ResponseEntity<Contract> post(@Valid @RequestBody Contract contract){
-        Contract contractCriado = service.create(contract);
-        return ResponseEntity.ok(contractCriado);
+    public ResponseEntity<ContractOutputDTO> post(@Valid @RequestBody ContractInputDTO contract){
+        ContractOutputDTO contractCreated = service.create(contract);
+        return new ResponseEntity<ContractOutputDTO>(contractCreated, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Contract> getRead(@Valid @PathVariable Long id){
-        Contract contract = service.read(id);
-        return ResponseEntity.ok(contract);
+    public ResponseEntity<ContractOutputDTO> getRead(@Valid @PathVariable Long id){
+        ContractOutputDTO contractFo = service.read(id);
+        return ResponseEntity.ok(contractFo); // contractFo == contractFound
     }
 
     @GetMapping
-    public ResponseEntity<List<Contract>> getList(){
-        List<Contract> lista = service.list();
+    public ResponseEntity<List<ContractOutputDTO>> getList(Pageable page){
+        List<ContractOutputDTO> lista = (List<ContractOutputDTO>) service.list(page);
         return ResponseEntity.ok(lista);
 
     }
 
     @PutMapping
-    public ResponseEntity<Contract> put(@Valid @RequestBody Contract contract){
-        Contract contractCriado = service.update(contract);
-        return ResponseEntity.ok(contractCriado);
+    public ResponseEntity<ContractOutputDTO> put(@Valid @RequestBody ContractInputDTO contract){
+        ContractOutputDTO contractUpdate = service.update(contract);
+        return ResponseEntity.ok(contractUpdate);
     }
 
     @DeleteMapping("/{id}")

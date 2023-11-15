@@ -2,7 +2,9 @@ package com.RentRight.RentRight.controllers;
 
 import java.util.List;
 
+import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RentRight.RentRight.entities.Reservation;
+import com.RentRight.RentRight.dto.ReservationInputDTO;
+import com.RentRight.RentRight.dto.ReservationOutputDTO;
 import com.RentRight.RentRight.services.ReservationService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,28 +29,28 @@ public class ReservationController {
     private ReservationService service;
 
     @PostMapping
-    public ResponseEntity<Reservation> post(@Valid @RequestBody Reservation reservation){
-        Reservation reservationCriado = service.create(reservation);
-        return ResponseEntity.ok(reservationCriado);
+    public ResponseEntity<ReservationOutputDTO> post(@Valid @RequestBody ReservationInputDTO reservation){
+        ReservationOutputDTO reservationCreated = service.create(reservation);
+        return new ResponseEntity<ReservationOutputDTO>(reservationCreated ,HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservation> getRead(@Valid @PathVariable Long id){
-        Reservation reservation = service.read(id);
-        return ResponseEntity.ok(reservation);
+    public ResponseEntity<ReservationOutputDTO> getRead(@Valid @PathVariable Long id){
+        ReservationOutputDTO reservationFo = service.read(id);
+        return ResponseEntity.ok(reservationFo); // reservationFo == reservationFound
     }
 
     @GetMapping
-    public ResponseEntity<List<Reservation>> getList(){
-        List<Reservation> lista = service.list();
+    public ResponseEntity<List<ReservationOutputDTO>> getList(Pageable page){
+        List<ReservationOutputDTO> lista = service.list(page);
         return ResponseEntity.ok(lista);
 
     }
 
     @PutMapping
-    public ResponseEntity<Reservation> put(@Valid @RequestBody Reservation reservation){
-        Reservation reservationCriado = service.update(reservation);
-        return ResponseEntity.ok(reservationCriado);
+    public ResponseEntity<ReservationOutputDTO> put(@Valid @RequestBody ReservationInputDTO reservation){
+        ReservationOutputDTO reservationUpdate = service.update(reservation);
+        return ResponseEntity.ok(reservationUpdate);
     }
 
     @DeleteMapping("/{id}")

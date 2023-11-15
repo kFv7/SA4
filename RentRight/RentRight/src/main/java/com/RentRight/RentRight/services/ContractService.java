@@ -2,9 +2,13 @@ package com.RentRight.RentRight.services;
 
 import java.util.List;
 
+import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.RentRight.RentRight.dto.ContractInputDTO;
+import com.RentRight.RentRight.dto.ContractOutputDTO;
 import com.RentRight.RentRight.entities.Contract;
 import com.RentRight.RentRight.repositories.ContractRepository;
 
@@ -17,14 +21,33 @@ public class ContractService {
     private ContractRepository repository;
 
     @Transactional
-    public Contract create(Contract contract){
-        Contract contractCriado = repository.save(contract);
-        return contractCriado;
+    public ContractOutputDTO create(ContractInputDTO dto){
+        Contract contractCriado = repository.save(converterDtoParaEntidade(dto));
+        return converterEntidadeParaDTO(contractCriado);
     }
 
-    public Contract read(Long id){
-        return repository.findById(id).get();
+    public ContractOutputDTO converterEntidadeParaDTO(Contract contract){
+        ContractOutputDTO dtoSaida = new ContractOutputDTO();
+        dtoSaida.setId(contract.getId());
+        dtoSaida.setStartDate(contract.getStartDate());
+        dtoSaida.setEndDate(contract.getEndDate());
+        return dtoSaida;
     }
+
+    public Contract converterDtoParaEntidade(ContractInputDTO dto){
+        Contract contract = new Contract();
+        contract.setId(contract.getId());
+        contract.setStartDate(contract.getStartDate());
+        contract.setEndDate(contract.getEndDate());
+        return contract;
+    }
+ 
+
+    public ContractOutputDTO read(Long id){
+        Contract contract = repository.findById(id).get();
+        return converterEntidadeParaDTO(contract);
+    }
+
 
     public List<Contract> list(){
         List<Contract> contracts = (List<Contract>) repository.findAll();
@@ -37,9 +60,13 @@ public class ContractService {
     }
 
     @Transactional
-    public Contract update(Contract contract){
+    public ContractOutputDTO update(ContractInputDTO contract){
+        if(contract.getId() == null){
+            contract.setId(99l);
+        }
         if(repository.existsById(contract.getId())){
-            return repository.save(contract);
+            Contract contractUpdate = repository.save(converterDtoParaEntidade(contract));
+            return converterEntidadeParaDTO(contractUpdate);
         }else{
             return null;
         }
