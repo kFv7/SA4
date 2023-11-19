@@ -2,9 +2,8 @@ package com.RentRight.RentRight.services;
 
 import java.util.List;
 
-import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.RentRight.RentRight.dto.ContractInputDTO;
@@ -49,7 +48,7 @@ public class ContractService {
     }
 
 
-    public List<Contract> list(){
+    public List<Contract> list(Pageable page){
         List<Contract> contracts = (List<Contract>) repository.findAll();
         return contracts;
     }
@@ -71,4 +70,5 @@ public class ContractService {
             return null;
         }
     }
+
 }

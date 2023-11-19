@@ -1,5 +1,6 @@
 package com.RentRight.RentRight.advice;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,7 @@ import com.RentRight.RentRight.dto.ErroDTO;
 public class HandlerAdvice {
      @ExceptionHandler({NoSuchElementException.class})
     public ResponseEntity notFound(){
-
-        return new ResponseEntity<>("Objeto não encontrado", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Object not found", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})

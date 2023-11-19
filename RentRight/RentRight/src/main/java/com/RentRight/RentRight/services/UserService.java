@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +16,16 @@ import com.RentRight.RentRight.repositories.UserRepository;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
     @Autowired
     private UserRepository repository;
 
     @Transactional
     public User create(User user){
-        User userCriado = repository.save(user);
-        return userCriado;
+        String password = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(password);
+        User userCreated = repository.save(user);
+        return userCreated;
     }
 
     public User read(Long id){
@@ -47,13 +51,14 @@ public class UserService {
         }
     }
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.findByEmail(email);
         if(user != null){
             return org.springframework.security.core.userdetails.User.builder()
                 .password(user.getPassword())
-                .username(user.getName())
+                .username(user.getEmail())
             .build();
         }else{
             throw new UsernameNotFoundException("");

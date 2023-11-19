@@ -2,8 +2,8 @@ package com.RentRight.RentRight.controllers;
 
 import java.util.List;
 
-import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.RentRight.RentRight.dto.ContractInputDTO;
 import com.RentRight.RentRight.dto.ContractOutputDTO;
 import com.RentRight.RentRight.services.ContractService;
+import com.RentRight.RentRight.entities.Contract;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
@@ -41,10 +42,9 @@ public class ContractController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ContractOutputDTO>> getList(Pageable page){
-        List<ContractOutputDTO> lista = (List<ContractOutputDTO>) service.list(page);
+    public ResponseEntity<List<Contract>> getList(Pageable page) {
+        List<Contract> lista = service.list(page);
         return ResponseEntity.ok(lista);
-
     }
 
     @PutMapping

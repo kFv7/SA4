@@ -2,8 +2,8 @@ package com.RentRight.RentRight.controllers;
 
 import java.util.List;
 
-import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,6 @@ import com.RentRight.RentRight.dto.ReservationInputDTO;
 import com.RentRight.RentRight.dto.ReservationOutputDTO;
 import com.RentRight.RentRight.services.ReservationService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,7 +31,7 @@ public class ReservationController {
     @PostMapping
     public ResponseEntity<ReservationOutputDTO> post(@Valid @RequestBody ReservationInputDTO reservation){
         ReservationOutputDTO reservationCreated = service.create(reservation);
-        return new ResponseEntity<ReservationOutputDTO>(reservationCreated ,HttpStatus.CREATED);
+        return new ResponseEntity<ReservationOutputDTO>(reservationCreated, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -41,10 +41,9 @@ public class ReservationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReservationOutputDTO>> getList(Pageable page){
+    public ResponseEntity<List<ReservationOutputDTO>> getList(Pageable page) {
         List<ReservationOutputDTO> lista = service.list(page);
         return ResponseEntity.ok(lista);
-
     }
 
     @PutMapping

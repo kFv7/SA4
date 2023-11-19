@@ -1,10 +1,9 @@
 package com.RentRight.RentRight.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springdoc.core.converters.models.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.RentRight.RentRight.dto.ReservationInputDTO;
@@ -72,5 +71,9 @@ public class ReservationService {
         }else{
             return null;
         }
+    }
+
+    public List<ReservationOutputDTO> list(Pageable page) {
+        return null;
     } 
 }
