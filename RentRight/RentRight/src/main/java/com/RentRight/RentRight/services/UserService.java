@@ -3,6 +3,7 @@ package com.RentRight.RentRight.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -63,5 +64,9 @@ public class UserService implements UserDetailsService{
         }else{
             throw new UsernameNotFoundException("");
         }
+    }
+
+    public List<User> list(Pageable page) {
+        return null;
     }
 }
