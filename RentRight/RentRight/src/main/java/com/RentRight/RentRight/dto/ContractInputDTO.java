@@ -1,6 +1,5 @@
 package com.RentRight.RentRight.dto;
 
-import java.sql.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +14,8 @@ public class ContractInputDTO {
     private Long id;
 
     @NotBlank @Past
-    private Date startDate;
+    private String startDate;
 
     @NotBlank @Past
-    private Date endDate;
+    private String endDate;
 }

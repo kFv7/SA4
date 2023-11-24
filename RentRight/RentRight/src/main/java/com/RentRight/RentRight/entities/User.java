@@ -15,6 +15,15 @@ import lombok.*;
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 public class User implements UserDetails{
+    public User(User user){
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.CPF = user.getCPF();
+        this.password = user.getPassword();
+
+    }
+
     @Id @GeneratedValue( strategy = GenerationType.AUTO)
     
     @NotNull

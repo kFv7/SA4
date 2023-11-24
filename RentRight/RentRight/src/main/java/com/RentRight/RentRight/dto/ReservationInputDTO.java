@@ -1,7 +1,5 @@
 package com.RentRight.RentRight.dto;
 
-import java.sql.Date;
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,10 +13,10 @@ public class ReservationInputDTO {
     private Long id;
 
     @NotBlank 
-    private Date checkin;
+    private String checkin;
 
     @NotBlank 
-    private Date checkout;
+    private String checkout;
 
     @NotBlank
     private String reserveStatus;

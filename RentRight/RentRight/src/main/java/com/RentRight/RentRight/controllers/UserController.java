@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
     
     @Autowired
@@ -47,15 +49,15 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getList(Pageable page) {
-        List<User> lista = service.list(page);
+    public ResponseEntity<List<User>> getList(){
+        List<User> lista = service.list();
         return ResponseEntity.ok(lista);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getRead(@Valid @PathVariable Long id){
-        User userFo = service.read(id);
-        return ResponseEntity.ok(userFo); // reservationFo == reservationFound
+        User user = service.read(id);
+        return ResponseEntity.ok(user);
     }
 
 }

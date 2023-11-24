@@ -1,6 +1,6 @@
 package com.RentRight.RentRight.entities;
 
-import java.sql.Date;
+import com.RentRight.RentRight.dto.ReservationInputDTO;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -10,17 +10,25 @@ import lombok.*;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
-public class Reservation {
+public class Reservation {  
+    public Reservation(ReservationInputDTO reservationInput){
+        this.id = reservationInput.getId();
+        this.checkin = reservationInput.getCheckin();
+        this.checkout = reservationInput.getCheckout();
+        this.reserveStatus = reservationInput.getReserveStatus();
+        this.rentalPrice = reservationInput.getRentalPrice();
+    }
+
     @Id @GeneratedValue( strategy = GenerationType.AUTO)
 
     @NotNull
     private Long id;
 
     @NotBlank 
-    private Date checkin;
+    private String checkin;
 
     @NotBlank 
-    private Date checkout;
+    private String checkout;
 
     @NotBlank
     private String reserveStatus;

@@ -10,6 +10,16 @@ import lombok.*;
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 public class Apartment {
+    public Apartment(Apartment apartment){
+        this.id = getId();
+        this.name = getName();
+        this.address = getAddress();
+        this.rentalPrice = getRentalPrice();
+        this.bathroomNumber = getBathroomNumber();
+        this.bedroomsNumber = getBedroomsNumber();
+        this.size = getSize();
+    }
+
     @Id @GeneratedValue( strategy = GenerationType.AUTO)
     @NotNull
     private Long id;
