@@ -5,12 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class ReservationOutputDTO {
-
+public class ApartmentOutputDTO {
+    
     private Long id;
-    private String checkin;
-    private String checkout;
-    private String reserveStatus;
+    private String address;
     private Double rentalPrice;
-
+    private Integer bathroomNumber;
+    private Integer bedroomsNumber;
+    private Integer size;
 }

@@ -1,6 +1,5 @@
 package com.RentRight.RentRight.dto;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -18,4 +17,5 @@ public class ContractInputDTO {
 
     @NotBlank @Past
     private String endDate;
+
 }

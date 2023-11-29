@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 
+import com.RentRight.RentRight.dto.ApartmentInputDTO;
+import com.RentRight.RentRight.dto.ApartmentOutputDTO;
 import com.RentRight.RentRight.entities.Apartment;
 import com.RentRight.RentRight.repositories.ApartmentRepository;
 import com.RentRight.RentRight.services.ApartmentService;
@@ -31,17 +33,16 @@ public class ApartamentRegisterTest {
     @Test
     void registerApartmentComSucesso(){
 
-        Apartment apartmentInput = new Apartment(1l, "Arial", "Favela", 500.34, 1, 2, 30);
+        ApartmentInputDTO apartmentInput = new ApartmentInputDTO(1l, "Favela", 500.34, 1, 2, 30);
 
         Apartment apartment = new Apartment(apartmentInput);
 
         when(repository.existsById(anyLong())).thenReturn(true);
         when(repository.save(any())).thenReturn(apartment);
 
-        Apartment apartmentAtualizado = service.update((apartmentInput));
+        ApartmentOutputDTO apartmentAtualizado = service.update((apartmentInput));
 
         assertEquals(apartmentInput.getId(), apartmentAtualizado.getId());
-        assertEquals(apartmentInput.getName(), apartmentAtualizado.getName());
         assertEquals(apartmentInput.getAddress(), apartmentAtualizado.getAddress());
         assertEquals(apartmentInput.getRentalPrice(), apartmentAtualizado.getRentalPrice());
         assertEquals(apartmentInput.getBathroomNumber(), apartmentAtualizado.getBathroomNumber());

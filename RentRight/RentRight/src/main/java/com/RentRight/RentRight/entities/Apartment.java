@@ -1,5 +1,7 @@
 package com.RentRight.RentRight.entities;
 
+import com.RentRight.RentRight.dto.ApartmentInputDTO;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -10,9 +12,8 @@ import lombok.*;
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
 public class Apartment {
-    public Apartment(Apartment apartment){
+    public Apartment(ApartmentInputDTO apartmentInput){
         this.id = getId();
-        this.name = getName();
         this.address = getAddress();
         this.rentalPrice = getRentalPrice();
         this.bathroomNumber = getBathroomNumber();
@@ -23,9 +24,6 @@ public class Apartment {
     @Id @GeneratedValue( strategy = GenerationType.AUTO)
     @NotNull
     private Long id;
-
-    @NotBlank 
-    private String name;
 
     @NotBlank
     private String address;
